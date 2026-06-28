@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Totally Normal PDF Downloader 😈</title>
+
+<style>
+body{
+    background:#111;
+    color:white;
+    font-family:Arial;
+    text-align:center;
+    overflow:hidden;
+}
+
+h1{
+    margin-top:40px;
+}
+
+#download{
+    padding:15px 40px;
+    font-size:22px;
+    background:#00b894;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    position:absolute;
+}
+
+#count{
+    font-size:28px;
+    margin-top:30px;
+    display:none;
+}
+
+#final{
+    display:none;
+    margin-top:40px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>📄 Free PDF Download</h1>
+<p>Click the button to download your file.</p>
+
+<button id="download">Download PDF</button>
+
+<div id="count"></div>
+
+<div id="final">
+<h2>😂 Sorry! I made some fun and made you laugh</h2><br><br>
+<b>Elementary Linear Algebra </b>
+<br><br><a href="https://drive.google.com/file/d/1D8Zf1OeUC-C4sF4CcNBYHnmTTT51EXSu/view?usp=drivesdk" download>
+<button style="padding:10px 20px;font-size:20px">
+Part 1
+</button></a>
+</div>
+
+<script>
+
+const btn=document.getElementById("download");
+let clicks=0;
+
+btn.style.left="45%";
+btn.style.top="50%";
+
+btn.onclick=function(){
+
+clicks++;
+
+if(clicks<8){
+
+let x=Math.random()*(window.innerWidth-200);
+let y=Math.random()*(window.innerHeight-100);
+
+btn.style.left=x+"px";
+btn.style.top=y+"px";
+
+btn.innerHTML=[
+"Catch Me 😂",
+"Nope 😎",
+"Too Slow!",
+"Missed!",
+"Almost!",
+"Try Again!"
+][Math.floor(Math.random()*6)];
+
+}else{
+
+btn.style.display="none";
+
+let c=3;
+let count=document.getElementById("count");
+count.style.display="block";
+
+let timer=setInterval(function(){
+
+count.innerHTML="Preparing download... "+c;
+
+c--;
+
+if(c<0){
+
+clearInterval(timer);
+
+count.style.display="none";
+
+document.getElementById("final").style.display="block";
+
+}
+
+},1000);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
