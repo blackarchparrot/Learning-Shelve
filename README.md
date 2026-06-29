@@ -1,6 +1,6 @@
-# 📚 PDF Shelve
+# 📚 Learning Shelve
 
-PDF Shelve is a personal web-based PDF library designed to provide quick and easy access to a growing collection of educational and reference materials. Users can browse and download available PDFs, while also helping expand the library by suggesting missing documents.
+Learning Shelve is a personal web-based PDF library designed to provide quick and easy access to a growing collection of educational and reference materials. Users can browse and download available PDFs, while also helping expand the library by suggesting missing documents.
 
 Features
 
@@ -12,7 +12,7 @@ Features
 
 Purpose
 
-The goal of PDF Shelve is to create a simple, organized, and community-driven repository of useful PDF resources. Whether you're looking for study materials, reference books, or lecture notes, PDF Shelve aims to make them easy to find and access.
+The goal of Learning Shelve is to create a simple, organized, and community-driven repository of useful PDF resources. Whether you're looking for study materials, reference books, or lecture notes, PDF Shelve aims to make them easy to find and access.
 
 Contributing
 
