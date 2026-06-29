@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contribute a PDF | Learning Shelve</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #0f172a;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+}
+
+.container {
+    width: 100%;
+    max-width: 700px;
+    background: #1e293b;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, .4);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+p {
+    text-align: center;
+    color: #cbd5e1;
+    margin-bottom: 30px;
+}
+
+label {
+    display: block;
+    margin-top: 18px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background: #334155;
+    color: white;
+    font-size: 16px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 2px solid #10b981; /* Green accent color for contribution workflows */
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.drive-instructions {
+    margin-top: 10px;
+    padding: 15px;
+    background: #2c241a;
+    border-left: 4px solid #f59e0b; /* Amber warning accent border */
+    border-radius: 6px;
+    font-size: 14px;
+    color: #fde047;
+    line-height: 1.5;
+}
+
+button {
+    margin-top: 25px;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background: #10b981; 
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: .3s;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #059669;
+}
+
+button:disabled {
+    background: #64748b;
+    cursor: not-allowed;
+}
+
+.note {
+    margin-top: 25px;
+    padding: 15px;
+    background: #0f172a;
+    border-left: 5px solid #10b981;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #cbd5e1;
+}
+
+footer {
+    text-align: center;
+    margin-top: 25px;
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+a {
+    color: #60a5fa;
+    text-decoration: none;
+}
+
+/* Floating Success Alert Banner */
+.popup-alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #10b981;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: none;
+    font-weight: bold;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(120%); }
+    to { transform: translateX(0); }
+}
+</style>
+</head>
+<body>
+
+<div id="successAlert" class="popup-alert">🎉 Contribution Submitted Successfully!</div>
+
+<div class="container">
+<h1>📤 Contribute a PDF</h1>
+<p>
+    Have useful books, notes, or questions? Share the shareable link with everyone!
+</p>
+
+<form id="contributionForm" action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value="dd7e517b-6640-4436-af96-dd6b08e2048b">
+    <input type="hidden" name="subject" value="New PDF Link Contribution">
+    
+    <label>Contributor Name (Optional)</label>
+    <input type="text" name="Contributor Name" placeholder="Enter your name or keep anonymous">
+    <label>Contributor's Batch (Optional)</label>
+    <input type="text" name="Contributor Batch" placeholder="Enter your Batch or keep anonymous">
+    
+    <label>Mobile Number (Optional)</label>
+    <input type="numbet" name="Mobile" placeholder="+8801............">
+    
+    <label>Email Address (Optional)</label>
+    <input type="email" name="Email" placeholder="example@email.com">
+    
+    <label>Category</label>
+    <select name="Category">
+        <option>Engineering</option>
+        <option>Computer Science</option>
+        <option>Physics</option>
+        <option>Mathematics</option>
+        <option>Chemistry</option>
+        <option>Admission</option>
+        <option>Notes</option>
+        <option>Others</option>
+    </select>
+    
+    <label>Document / PDF Title</label>
+    <input type="text" name="PDF Title" placeholder="Example: Linear Algebra Lecture Notes" required>
+    
+    <label>Public Shareable Link (Google Drive, OneDrive, Mega, etc.)</label>
+    <input type="url" name="Shareable Link" placeholder="https://drive.google.com/file/d/..." required>
+    
+    <div class="drive-instructions">
+        ⚠️ <strong>Important:</strong> Please ensure your cloud link's sharing permissions are set to <strong>"Anyone with the link can view"</strong> so our team can access and review the file.
+    </div>
+    
+    <label>Message / Description</label>
+    <textarea name="Message" placeholder="Add details like year, semester, or any specifics about the file..."></textarea>
+    
+    <button type="submit" id="submitBtn">🚀 Submit Contribution</button>
+</form>
+
+<div class="note">
+    <strong>💖 Thank You for Your Contribution!</strong> 
+    <p style="text-align: left; margin-bottom: 0; margin-top: 8px; color: #cbd5e1; font-size: 14px;">
+        Community sharing is what keeps <strong>Learning Shelve</strong> alive. Once you submit, our team will test the link permissions, run a quick security screening, and add it to the library for everyone. We deeply appreciate your time and effort!
+    </p>
+</div>
+
+<footer>
+    <a href="index.html">⬅ Back to Home</a>
+</footer>
+</div>
+
+<script>
+document.getElementById('contributionForm').addEventListener('submit', function(e) {
+    e.preventDefault(); 
+    
+    const form = this;
+    const button = document.getElementById('submitBtn');
+    const alertBox = document.getElementById('successAlert');
+    
+    button.disabled = true;
+    button.textContent = "Submitting Link...";
+
+    fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    .then(async (response) => {
+        let json = await response.json();
+        if (response.status == 200) {
+            alertBox.style.display = 'block';
+            form.reset(); 
+            
+            setTimeout(() => {
+                alertBox.style.display = 'none';
+            }, 4000);
+        } else {
+            alert(json.message || "Something went wrong. Please check your data and try again.");
+        }
+    })
+    .catch(error => {
+        alert("Connection error. Check your internet connection.");
+    })
+    .finally(() => {
+        button.disabled = false;
+        button.textContent = "🚀 Submit Contribution";
+    });
+});
+</script>
+</body>
+</html>
