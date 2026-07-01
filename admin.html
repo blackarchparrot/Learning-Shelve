@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard Approval Terminal</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+body { background: #0f172a; color: white; padding: 30px; min-height: 100vh; }
+.admin-box { width: 100%; max-width: 800px; margin: 0 auto; background: #1e293b; padding: 25px; border-radius: 12px; }
+h1 { margin-bottom: 20px; color: #10b981; border-bottom: 2px solid #334155; padding-bottom: 10px; }
+.queue-card { background: #334155; padding: 15px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+.info span { display: block; font-size: 14px; color: #cbd5e1; margin-top: 4px; }
+.info strong { font-size: 18px; color: white; }
+.actions button { padding: 10px 15px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-left: 8px; }
+.btn-approve { background: #10b981; color: white; }
+.btn-decline { background: #ef4444; color: white; }
+</style>
+</head>
+<body>
+
+<div class="admin-box">
+    <h1>🕵️‍♂️ Queue Control Approvals Terminal</h1>
+    <div id="queueContainer">Loading entries requiring review...</div>
+</div>
+
+<script>
+// !!! REPLACE WITH YOUR ACTUAL SHEETDB API URL !!!
+const SHEETDB_API_URL = "https://sheetdb.io/api/v1/07ui9murzi2v8";
+const ADMIN_PASSWORD = "nitertecr"; // Choose any dashboard passkey you want
+
+async function verifyIdentity() {
+    const check = prompt("Enter security admin credentials passkey:");
+    if (check !== ADMIN_PASSWORD) {
+        alert("Access Refused.");
+        document.body.innerHTML = "<h2>Access Denied. Invalid Passkey.</h2>";
+        return false;
+    }
+    loadPendingQueue();
+}
+
+async function loadPendingQueue() {
+    const holder = document.getElementById('queueContainer');
+    try {
+        const response = await fetch(`${SHEETDB_API_URL}/search?Status=PENDING`);
+        const entries = await response.json();
+
+        if(!entries || entries.length === 0) {
+            holder.innerHTML = "<p style='color: #94a3b8;'>Review complete. Queue is empty.</p>";
+            return;
+        }
+
+        holder.innerHTML = "";
+        entries.forEach(item => {
+            const el = document.createElement('div');
+            el.className = "queue-card";
+            el.innerHTML = `
+                <div class="info">
+                    <strong>${item.Title}</strong>
+                    <span>Category: ${item.Category} • Subject: ${item.Subject}</span>
+                    <span>By: ${item.Contributor}</span>
+                    <a href="${item.Link}" target="_blank" style="color: #60a5fa; font-size: 13px;">Open Link Location ↗</a>
+                </div>
+                <div class="actions">
+                    <button class="btn-approve" onclick="processRow('${item.id}', 'APPROVED')">Approve</button>
+                    <button class="btn-decline" onclick="processRow('${item.id}', 'DELETE')">Decline</button>
+                </div>
+            `;
+            holder.appendChild(el);
+        });
+    } catch (err) {
+        holder.innerHTML = "<p style='color: #ef4444;'>Error connecting to core database engine logs.</p>";
+    }
+}
+
+async function processRow(id, action) {
+    try {
+        if(action === 'APPROVED') {
+            // Update row status to APPROVED
+            await fetch(`${SHEETDB_API_URL}/id/${id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ data: { Status: "APPROVED" } })
+            });
+            alert("Item Approved Live!");
+        } else {
+            // Delete row entry completely
+            await fetch(`${SHEETDB_API_URL}/id/${id}`, { method: 'DELETE' });
+            alert("Entry Deleted Successfully.");
+        }
+        loadPendingQueue(); // Reload the interface queue lists
+    } catch(err) {
+        alert("Operation processing failed.");
+    }
+}
+
+window.addEventListener('DOMContentLoaded', verifyIdentity);
+</script>
+</body>
+</html>
